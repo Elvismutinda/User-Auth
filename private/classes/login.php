@@ -50,9 +50,9 @@ class Login
                         return false;
                     } else {
                         // Unlock the account since the lockout period has expired
-                        $stmt = $conn->prepare("UPDATE users SET locked = 0, last_failed_login = NULL WHERE id = ?");
+                        $stmt = $conn->prepare("UPDATE users SET login_attempts = 0, locked = 0, last_failed_login = NULL WHERE id = ?");
                         $stmt->bind_param("i", $row['id']);
-                        $stmt->execute();
+                        $stmt->execute(); 
                     }
                 }
             }

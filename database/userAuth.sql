@@ -33,7 +33,7 @@ CREATE TABLE `users` (
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
   `login_attempts` int(11) DEFAULT 0,
-  `last_failed_login` TIMESTAMP NULL DEFAULT NULL,
+  `last_failed_login` INT DEFAULT NULL,
   `locked` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
