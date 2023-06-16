@@ -56,6 +56,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $email = isset($_POST['email']) ? trim($_POST['email']) : '';
     $password = isset($_POST['password']) ? trim($_POST['password']) : '';
 
+    // Validate user inputs
     if(empty($name) || empty($email) || empty($password)){
         echo "Failed to create account";
         exit;

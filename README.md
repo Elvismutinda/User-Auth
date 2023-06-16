@@ -13,14 +13,20 @@ LET'S BEGIN!
 ## Table of Contents
 
   1. [Account Creation](#account-creation)
+      -[Email Security Measures](#email-create)
+      -[Password Security Measures](#pass-create)
+      -[Prepared Statements](#pp1)
   2. [Login](#login)
+      -[Prepared Statements](#pp2)
+      -[Failed Login Attempts](#failed-login)
   3. [Forgot Password](#forgot-pass)
+      -[PHPMailer](#phpmailer)
 
-### Account Creation <a name="account-creation"> </a>
+## Account Creation <a name="account-creation"> </a>
 
 Creating an account in any system is an important feature to enable potential users access certain features of your system.
 
-#### 1. Email Security Measures
+### 1. Email Security Measures <a name="email-create"> </a>
 Here I implemented security features that would handle sanitizing and validating user emails in the process of creating an account.
 
 The email was sanitized using the ```filter_var``` function together with ```FILTER_SANITIZE_EMAIL``` filter.
@@ -41,10 +47,10 @@ To validate user inputs of the email format together with ensuring that the othe
 ?>
 ```
 
-#### 2. Password Security Measures
+### 2. Password Security Measures <a name="pass-create"> </a>
 The password was then hashed using ```PASSWORD_BCRYPT``` since it includes a unique salt for each password hash making it more secure than md5.
 
-#### What's a Salt?
+### What's a Salt?
 
 A salt is a random value added to the password before hashing which increases security by making it extremely difficult to crack password using precomputed rainbow tables or dictionary attacks.
 
@@ -67,7 +73,7 @@ Simple example:
 ?>
 ```
   
-#### 3. Prepared statements
+### 3. Prepared statements <a name="pp1"> </a>
 Prepared statements with parameterized queries are used to prevent SQL injection attacks.
 Simple example:
 ```php
@@ -81,16 +87,16 @@ Simple example:
 ?>  
 ```
 
-### Login <a name="login"> </a>
+## Login <a name="login"> </a>
 
 Once a user account is create they can login into the system but we need to have security measure to ensure that the person trying to use the specific account is the owner of that account.
 
 To facilitate this, certian security measures were taken to prevent brute force attacks and sql injections.
 
-#### 1. Prepared Statements
-This prevents ```SQL injections```. Refer to the account creation to view the code for this.
+### 1. Prepared Statements <a name="pp2"> </a>
+This prevents ```SQL injections```. Refer to the [account creation](#pp1) to view the code for this.
 
-#### 2. Failed login attempts
+### 2. Failed Login Attempts <a name="failed-login"> </a>
 Failed login attempts are tracked and stored in the database for each user.
 
 When the count reaches 5 login attempts, the user's account is locked until the situation is resolved.
@@ -99,14 +105,14 @@ If the user successfully logs in before the maximum login attempts is reached, t
 
 This prevents ```Brute force attacks```.
 
-### Forgot Password <a name="forgot-pass"> </a>
+## Forgot Password <a name="forgot-pass"> </a>
 
 The process of reseting a user's password in case they forget it needs to be secure to prevent identity theft by hackers.
 
 First we need to setup a library for sending emails in PHP. I recommend ```PHPMailer```
-#### 1. PHPMailer
+### 1. PHPMailer <a name="phpmailer"> </a>
 
-#### Installation
+### Installation
 If you have [Composer](https://getcomposer.org) you can run the following line in your terminal to install PHPMailer:
 
 ```sh
