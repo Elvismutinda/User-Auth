@@ -75,6 +75,7 @@ Simple example:
   
 ### 3. Prepared statements <a name="pp1"> </a>
 Prepared statements with parameterized queries are used to prevent SQL injection attacks.
+
 Simple example:
 ```php
 <?php
