@@ -13,11 +13,9 @@ LET'S BEGIN!
 ## Table of Contents
 
   1. [Account Creation](#account-creation)
-
       -[Email Security Measures](#email-create)
       -[Password Security Measures](#pass-create)
       -[Prepared Statements](#pp1)
-
   2. [Login](#login)
       -[Prepared Statements](#pp2)
       -[Failed Login Attempts](#failed-login)
