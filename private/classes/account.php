@@ -52,19 +52,30 @@ class Account
 // create account
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    $name = isset($_POST['name']) ? trim($_POST['name']) : '';
+    $email = isset($_POST['email']) ? trim($_POST['email']) : '';
+    $password = isset($_POST['password']) ? trim($_POST['password']) : '';
+
+    if(empty($name) || empty($email) || empty($password)){
+        echo "Failed to create account";
+        exit;
+    }
+
+    // Validate email format
+    if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+        echo "Invalid email format";
+        exit;
+    }
 
     $dbConnection = new DBConnection(); // Create DBConnection object
 
     $account = new Account($name, $email, $password, $dbConnection);
     if($account->createAccount()){
-        $dbConnection->conn->close(); // Close the DBConnection
+        // $dbConnection->conn->close(); // Close the DBConnection
         header('Location: ../../index.php');
         exit;
     }else{
-        $dbConnection->conn->close(); // Close the DBConnection
+        // $dbConnection->conn->close(); // Close the DBConnection
         echo "Failed to create account";
     }
 }

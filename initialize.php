@@ -1,7 +1,7 @@
 <?php
 
 if(!defined('base_url'))
-    define('base_url', 'http://localhost/ExpensesApp/');
+    define('base_url', 'http://localhost/userAuth/');
 if(!defined('base_app'))
     define('base_app', str_replace('\\','/',__DIR__).'/' );
 if(!defined('DB_SERVER'))
@@ -11,6 +11,6 @@ if(!defined('DB_USERNAME'))
 if(!defined('DB_PASSWORD'))
     define('DB_PASSWORD', '');
 if(!defined('DB_NAME'))
-    define('DB_NAME', 'expenses_app');
+    define('DB_NAME', 'userauth');
 
 ?>

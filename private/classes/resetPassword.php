@@ -1,34 +1,78 @@
 <?php
 
+require_once("../../config.php");
+require_once("../../vendor/autoload.php");
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
 
-//Load Composer's autoloader
-require 'vendor/autoload.php';
+class ForgotPassword
+{
+    private $email;
+    private $dbConnection;
 
-function send_password_reset(){
-    //Server settings
-    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-    $mail->isSMTP();                                            //Send using SMTP
-    $mail->Host       = 'smtp.example.com';                     //Set the SMTP server to send through
-    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-    $mail->Username   = 'user@example.com';                     //SMTP username
-    $mail->Password   = 'secret';                               //SMTP password
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-    $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+    public function __construct($email, $dbConnection)
+    {
+        $this->email = $email;
+        $this->dbConnection = $dbConnection;
+    }
 
-    //Recipients
-    $mail->setFrom('from@example.com', 'Mailer');
-    $mail->addAddress('joe@example.net', 'Joe User');     //Add a recipient
-    $mail->addAddress('ellen@example.com');               //Name is optional
-    $mail->addReplyTo('info@example.com', 'Information');
-    $mail->addCC('cc@example.com');
-    $mail->addBCC('bcc@example.com');
+    public function generateResetCode()
+    {
+        // Retrieve the DBConnection object from the class property
+        $conn = $this->dbConnection->conn;
 
-    //Attachments
-    $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
-    $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
+        // Sanitize and validate email
+        $sanitizedEmail = filter_var($this->email, FILTER_SANITIZE_EMAIL);
+        if (!filter_var($sanitizedEmail, FILTER_VALIDATE_EMAIL)) {
+            return false;
+        }
+
+        // Generate a random reset code
+        $resetCode = bin2hex(random_bytes(16));
+
+        // Store the reset code in the database for the user
+        $stmt = $conn->prepare("UPDATE users SET reset_code = ? WHERE email = ?");
+        $stmt->bind_param("ss", $resetCode, $sanitizedEmail);
+        $stmt->execute();
+        $stmt->close();
+
+        // Send the reset code to the user's email
+        $mail = new PHPMailer(true);
+        $mail->isSMTP();
+        $mail->Host = 'your-smtp-host';  // Set your SMTP host
+        $mail->SMTPAuth = true;
+        $mail->Username = 'your-email@example.com';  // Set your email address
+        $mail->Password = 'your-email-password';  // Set your email password
+        $mail->SMTPSecure = 'tls';
+        $mail->Port = 587;
+        $mail->setFrom('your-email@example.com', 'Your Name');  // Set the "from" email address and name
+        $mail->addAddress($sanitizedEmail);  // Set the recipient email address
+        $mail->Subject = 'Password Reset Code';
+        $mail->Body = "Your password reset code is: $resetCode";
+
+        if ($mail->send()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+// Usage example
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = $_POST['email'];
+
+    $dbConnection = new DBConnection(); // Create DBConnection object
+
+    $forgotPassword = new ForgotPassword($email, $dbConnection);
+    if ($forgotPassword->generateResetCode()) {
+        $dbConnection->conn->close(); // Close the DBConnection
+        echo "Reset code sent successfully!";
+    } else {
+        $dbConnection->conn->close(); // Close the DBConnection
+        echo "Failed to send reset code.";
+    }
 }
 
 ?>
