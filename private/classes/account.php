@@ -20,6 +20,10 @@ class Account
         // Retrieve the DBConnection object from the class property
         $conn = $this->dbConnection->conn;
 
+        // Generate a CSRF token and store it in the session
+        $csrfToken = bin2hex(random_bytes(32));
+        $_SESSION['csrf_token'] = $csrfToken;
+
         $sanitizedName = $conn->real_escape_string($this->name);
         // sanitize and validate email before using it
         $sanitizedEmail = filter_var($this->email, FILTER_SANITIZE_EMAIL);
@@ -45,50 +49,59 @@ class Account
         $stmt->execute();
         // account creation successful
         $stmt->close();
+
+        // Generate a new CSRF token after creating the account
+        $csrfToken = bin2hex(random_bytes(32));
+        $_SESSION['csrf_token'] = $csrfToken;
+
         return true;
     }
 }
 
 // create account
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    // Check if the CSRF token matches the one stored in the session
+    if(isset($_POST['csrf_token']) && $_POST['csrf_token'] === $_SESSION['csrf_token']){
+        $name = isset($_POST['name']) ? trim($_POST['name']) : '';
+        $email = isset($_POST['email']) ? trim($_POST['email']) : '';
+        $password = isset($_POST['password']) ? trim($_POST['password']) : '';
 
-    $name = isset($_POST['name']) ? trim($_POST['name']) : '';
-    $email = isset($_POST['email']) ? trim($_POST['email']) : '';
-    $password = isset($_POST['password']) ? trim($_POST['password']) : '';
+        // Validate user inputs
+        if(empty($name) || empty($email) || empty($password)){
+            echo "Failed to create account";
+            exit;
+        }
 
-    // Validate user inputs
-    if(empty($name) || empty($email) || empty($password)){
-        echo "Failed to create account";
-        exit;
-    }
+        // Validate email format
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+            echo "Invalid email format";
+            exit;
+        }
 
-    // Validate email format
-    if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-        echo "Invalid email format";
-        exit;
-    }
+        // Validate password strength
+        if(strlen($password) < 8){
+            echo "Password must be at least 8 characters";
+            exit;
+        }
+        
+        if(!preg_match("/[A-Z]/", $password) || !preg_match("/[a-z]/", $password) || !preg_match("/[0-9]/", $password)){
+            echo "Password must contain at least one uppercase letter, one lowercase letter, and one number";
+            exit;
+        }
 
-    // Validate password strength
-    if(strlen($password) < 8){
-        echo "Password must be at least 8 characters";
-        exit;
-    }
-    
-    if(!preg_match("/[A-Z]/", $password) || !preg_match("/[a-z]/", $password) || !preg_match("/[0-9]/", $password)){
-        echo "Password must contain at least one uppercase letter, one lowercase letter, and one number";
-        exit;
-    }
+        $dbConnection = new DBConnection(); // Create DBConnection object
 
-    $dbConnection = new DBConnection(); // Create DBConnection object
-
-    $account = new Account($name, $email, $password, $dbConnection);
-    if($account->createAccount()){
-        // $dbConnection->conn->close(); // Close the DBConnection
-        header('Location: ../../index.php');
-        exit;
+        $account = new Account($name, $email, $password, $dbConnection);
+        if($account->createAccount()){
+            // $dbConnection->conn->close(); // Close the DBConnection
+            header('Location: ../../index.php');
+            exit;
+        }else{
+            // $dbConnection->conn->close(); // Close the DBConnection
+            echo "Failed to create account";
+        }
     }else{
-        // $dbConnection->conn->close(); // Close the DBConnection
-        echo "Failed to create account";
+        echo "CSRF Validation Failed";
     }
 }
 

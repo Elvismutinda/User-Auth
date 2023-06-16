@@ -98,7 +98,7 @@ require_once("config.php");
                                 <div class="outer">
                                     <label for="name">Name</label>
                                     <input type="text" class="form-control" name="name" required>
-                                    <!-- <input type="hidden" name="crsf-token"> -->
+                                    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                                 </div>
                             </div>
                         </div>
