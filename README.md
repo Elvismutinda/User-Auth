@@ -79,12 +79,12 @@ Prepared statements with parameterized queries are used to prevent SQL injection
 Simple example:
 ```php
 <?php
-      $stmt = $conn->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
-      $stmt->bind_param("sss", $sanitizedName, $sanitizedEmail, $hashedPass);
-      $stmt->execute();
-      // account creation successful
-      $stmt->close();
-      return true;
+  $stmt = $conn->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
+  $stmt->bind_param("sss", $sanitizedName, $sanitizedEmail, $hashedPass);
+  $stmt->execute();
+  // account creation successful
+  $stmt->close();
+  return true;
 ?>  
 ```
 
@@ -105,9 +105,9 @@ A 32 random byte string is generated using the ```random_bytes(32)``` function a
 Implementation:
 ```php
 <?php
-        // Generate a CSRF token and store it in the session
-        $csrfToken = bin2hex(random_bytes(32));
-        $_SESSION['csrf_token'] = $csrfToken;
+  // Generate a CSRF token and store it in the session
+  $csrfToken = bin2hex(random_bytes(32));
+  $_SESSION['csrf_token'] = $csrfToken;
 ?>
 ```
 
