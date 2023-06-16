@@ -16,6 +16,7 @@ LET'S BEGIN!
    - [Email Security Measures](#email-create)
    - [Password Security Measures](#pass-create)
    - [Prepared Statements](#pp1)
+   - [CSRF Tokens](#csrf-create)
 2. [Login](#login)
    - [Prepared Statements](#pp2)
    - [Failed Login Attempts](#failed-login)
@@ -85,6 +86,28 @@ Simple example:
       $stmt->close();
       return true;
 ?>  
+```
+
+### 4. CSRF Tokens <a name="csrf-create"> </a>
+CSRF (Cross-site Request Forgery) protection is implemented by adding a CSRF token to the form and validating it upon submission.
+
+The CSRF token is stored in the session on the server side and upon submission of the form it is compared to the one submitted to ensure the request is legitimate and not a cross-site request forgery.
+
+In the form we include the CSRF token as a hidden input field:
+```html
+<input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+```
+
+Then in the PHP script, a token is generated and once the form is submitted, a new one is generated.
+
+A 32 random byte string is generated using the ```random_bytes(32)``` function and then converted into a 64-character hexadecimal string using the ```bin2hex()``` function. This makes up the CSRF token.
+Implementation:
+```php
+<?php
+        // Generate a CSRF token and store it in the session
+        $csrfToken = bin2hex(random_bytes(32));
+        $_SESSION['csrf_token'] = $csrfToken;
+?>
 ```
 
 ## Login <a name="login"> </a>
