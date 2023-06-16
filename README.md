@@ -98,3 +98,21 @@ When the count reaches 5 login attempts, the user's account is locked until the 
 If the user successfully logs in before the maximum login attempts is reached, the count is reset and they are logged into the system.
 
 This prevents ```Brute force attacks```.
+
+### Forgot Password <a name="forgot-pass"> </a>
+
+The process of reseting a user's password in case they forget it needs to be secure to prevent identity theft by hackers.
+
+First we need to setup a library for sending emails in PHP. I recommend ```PHPMailer```
+#### 1. PHPMailer
+
+#### Installation
+If you have [Composer](https://getcomposer.org) you can run the following line in your terminal to install PHPMailer:
+
+```sh
+composer require phpmailer/phpmailer
+```
+
+Make sure you're installing it in your development folder.
+
+You can view more details about PHPMailer for installation and use here -> [PHPMailer](https://github.com/PHPMailer/PHPMailer)
