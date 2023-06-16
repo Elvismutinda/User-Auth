@@ -20,6 +20,7 @@ LET'S BEGIN!
 2. [Login](#login)
    - [Prepared Statements](#pp2)
    - [Failed Login Attempts](#failed-login)
+   - [Timed Lockout](#timed-login)
 3. [Forgot Password](#forgot-pass)
    - [PHPMailer](#phpmailer)
 
@@ -128,6 +129,11 @@ When the count reaches 5 login attempts, the user's account is locked until the 
 If the user successfully logs in before the maximum login attempts is reached, the count is reset and they are logged into the system.
 
 This prevents ```Brute force attacks```.
+
+### 3. Timed Lockout <a name="timed-login"> </a>
+When the count reaches 5 login attempts, the user's account is locked for 5 minutes and they can't login even with the correct password until the 5 minutes are up.
+
+After the 5 minutes, they can try logging in again with their 5 tries.
 
 ## Forgot Password <a name="forgot-pass"> </a>
 
