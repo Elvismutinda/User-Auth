@@ -34,6 +34,29 @@ class Login
         if ($result->num_rows === 1) {
             $row = $result->fetch_assoc();
 
+            if ($row['locked'] == 1) {
+                // Account is locked
+                $lockTimestamp = $row['last_failed_login'];
+
+                if ($lockTimestamp !== null) {
+                    $lockDuration = 5 * 60; // 5 minutes in seconds
+                    $currentTime = time();
+                    $lockExpiration = $lockTimestamp + $lockDuration;
+
+                    if ($currentTime < $lockExpiration) {
+                        // Account is still locked
+                        $stmt->close();
+                        echo "Account locked. Please try again later.";
+                        return false;
+                    } else {
+                        // Unlock the account since the lockout period has expired
+                        $stmt = $conn->prepare("UPDATE users SET locked = 0, last_failed_login = NULL WHERE id = ?");
+                        $stmt->bind_param("i", $row['id']);
+                        $stmt->execute();
+                    }
+                }
+            }
+
             if ($row['login_attempts'] >= 5) {
                 // Account locked due to too many failed attempts
                 $stmt->close();
@@ -98,8 +121,9 @@ class Login
 
             if ($row['login_attempts'] >= 5) {
                 // Lock the account
-                $stmt = $conn->prepare("UPDATE users SET locked = 1 WHERE id = ?");
-                $stmt->bind_param("i", $userId);
+                $stmt = $conn->prepare("UPDATE users SET locked = 1, last_failed_login = ? WHERE id = ?");
+                $lockTimestamp = time();
+                $stmt->bind_param("ii", $lockTimestamp, $userId);
                 $stmt->execute();
             }
         }
