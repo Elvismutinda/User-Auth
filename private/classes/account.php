@@ -67,6 +67,17 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         exit;
     }
 
+    // Validate password strength
+    if(strlen($password) < 8){
+        echo "Password must be at least 8 characters";
+        exit;
+    }
+    
+    if(!preg_match("/[A-Z]/", $password) || !preg_match("/[a-z]/", $password) || !preg_match("/[0-9]/", $password)){
+        echo "Password must contain at least one uppercase letter, one lowercase letter, and one number";
+        exit;
+    }
+
     $dbConnection = new DBConnection(); // Create DBConnection object
 
     $account = new Account($name, $email, $password, $dbConnection);
