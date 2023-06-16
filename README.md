@@ -55,9 +55,8 @@ The password was then hashed using ```PASSWORD_BCRYPT``` since it includes a uni
 
 A salt is a random value added to the password before hashing which increases security by making it extremely difficult to crack password using precomputed rainbow tables or dictionary attacks.
 
-Moreover, password strength implementation was done to ensure users choose strong passwords.
-  
-Things such as password minimum length, combination of uppercase, lowercase letters and numbers were considered
+Moreover, password strength implementation was done to ensure users choose strong passwords. Things such as password minimum length, combination of uppercase, lowercase letters and numbers were considered.
+
 Simple example:
 ```php
 <?php
