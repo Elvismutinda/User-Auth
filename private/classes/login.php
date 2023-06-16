@@ -88,7 +88,7 @@ class Login
         $conn = $this->dbConnection->conn;
 
         // Use prepared statement to prevent SQL injection
-        $stmt = $conn->prepare("SELECT login_attempts, last_failed_login FROM users WHERE id = ?");
+        $stmt = $conn->prepare("SELECT login_attempts FROM users WHERE id = ?");
         $stmt->bind_param("i", $userId);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -96,23 +96,11 @@ class Login
         if ($result->num_rows === 1) {
             $row = $result->fetch_assoc();
 
-            $maxFailedAttempts = 5;
-            $lockoutDuration = 300; // 5 minutes in seconds
-
-            if ($row['login_attempts'] >= $maxFailedAttempts) {
-                $lastFailedLogin = strtotime($row['last_failed_login']);
-                $currentTime = time();
-
-                // Check if the lockout duration has passed
-                if (($currentTime - $lastFailedLogin) < $lockoutDuration) {
-                    // Account still locked
-                    return;
-                } else {
-                    // Reset login attempts and unlock the account
-                    $stmt = $conn->prepare("UPDATE users SET login_attempts = 0, locked = 0 WHERE id = ?");
-                    $stmt->bind_param("i", $userId);
-                    $stmt->execute();
-                }
+            if ($row['login_attempts'] >= 5) {
+                // Lock the account
+                $stmt = $conn->prepare("UPDATE users SET locked = 1 WHERE id = ?");
+                $stmt->bind_param("i", $userId);
+                $stmt->execute();
             }
         }
 
