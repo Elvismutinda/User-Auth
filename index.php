@@ -61,7 +61,7 @@ require_once("config.php");
                     <p>Enter your email to begin the reset password process.</p>
                 </div>
                 <div class="auth-form">
-                    <form action="" method="POST">
+                    <form action="private/classes/forgot.php" method="POST">
                         <div class="form-group">
                             <div class="row">
                                 <div class="outer">
@@ -74,7 +74,7 @@ require_once("config.php");
                         <div class="form-group">
                             <div class="row">
                                 <div class="outer">
-                                    <button class="btn btn-primary btn-block">Reset Password</button>
+                                    <button type="submit" class="btn btn-primary btn-block">Reset Password</button>
                                 </div>
                             </div>
                         </div>

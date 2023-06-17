@@ -40,13 +40,13 @@ class ForgotPassword
         // Send the reset code to the user's email
         $mail = new PHPMailer(true);
         $mail->isSMTP();
-        $mail->Host = 'your-smtp-host';  // Set your SMTP host
+        $mail->Host = 'smtp.gmail.com';  // Set your SMTP host
         $mail->SMTPAuth = true;
-        $mail->Username = 'your-email@example.com';  // Set your email address
-        $mail->Password = 'your-email-password';  // Set your email password
+        $mail->Username = 'elvismutinda2@gmail.com';  // Set your email address
+        $mail->Password = 'wkhpkegpcgnrtdep';  // Set your email password
         $mail->SMTPSecure = 'tls';
         $mail->Port = 587;
-        $mail->setFrom('your-email@example.com', 'Your Name');  // Set the "from" email address and name
+        $mail->setFrom('elvismutinda2@gmail.com', 'Elvis');  // Set the "from" email address and name
         $mail->addAddress($sanitizedEmail);  // Set the recipient email address
         $mail->Subject = 'Password Reset Code';
         $mail->Body = "Your password reset code is: $resetCode";

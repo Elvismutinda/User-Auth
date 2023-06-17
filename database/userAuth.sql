@@ -35,6 +35,7 @@ CREATE TABLE `users` (
   `login_attempts` int(11) DEFAULT 0,
   `last_failed_login` INT DEFAULT NULL,
   `locked` tinyint(1) NOT NULL DEFAULT 0,
+  `reset_code` VARCHAR(32),
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -43,8 +44,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `login_attempts`, `last_failed_login`, `locked`, `created_at`, `updated_at`) VALUES
-(1, 'Elvis Mutinda', 'elvocool47@gmail.com', '$2y$10$VeOJxznrdBdYMO6ry17BhORIgpC05GlNhN2EJELKoNWUt6MHmipUq', 0, NULL, 0, '2023-06-16 11:35:33', '2023-06-16 11:35:33');
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `login_attempts`, `last_failed_login`, `locked`, `reset_code`, `created_at`, `updated_at`) VALUES
+(1, 'Elvis Mutinda', 'elvocool47@gmail.com', '$2y$10$VeOJxznrdBdYMO6ry17BhORIgpC05GlNhN2EJELKoNWUt6MHmipUq', 0, NULL, 0, NULL, '2023-06-16 11:35:33', '2023-06-16 11:35:33');
 
 --
 -- Indexes for dumped tables
