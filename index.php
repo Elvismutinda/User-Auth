@@ -27,7 +27,7 @@ require_once("config.php");
                                 <div class="outer">
                                     <label for="email">Email Address</label>
                                     <input type="email" class="form-control" name="email" required>
-                                    <!-- <input type="hidden" name="crsf-token"> -->
+                                    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                                 </div>
                             </div>
                         </div>

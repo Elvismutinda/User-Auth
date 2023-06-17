@@ -14,5 +14,6 @@ require_once("../../config.php");
 </head>
 <body>
     <h1>SUCCESSFUL LOGIN. WELCOME!!!</h1>
+    <button type="submit" class="btn btn-primary">LOGOUT</button>
 </body>
 </html>

@@ -132,20 +132,31 @@ class Login
     }
 }
 
+// generate and store a new CSRF token
+if(!isset($_SESSION['csrf_token'])){
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 // login
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    // verify the token
+    if(!empty($_POST['csrf_token']) && hash_equals($_POST['csrf_token'], $_SESSION['csrf_token'])){
+        $email = $_POST['email'];
+        $password = $_POST['password'];
 
-    $dbConnection = new DBConnection();
-    $login = new Login($email, $password, $dbConnection);
-    
-    if ($login->authenticate()) {
-        // $dbConnection->conn->close();
-        header('Location: ../user/index.php');
-        exit;
-    } else {
-        echo "Login failed";
+        $dbConnection = new DBConnection();
+        $login = new Login($email, $password, $dbConnection);
+        
+        if ($login->authenticate()) {
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+            // $dbConnection->conn->close();
+            header('Location: ../user/index.php');
+            exit;
+        } else {
+            echo "Login failed";
+        }
+    }else{
+        echo "Attack detected"; // CSRF Validation Failed
     }
 }
 ?>

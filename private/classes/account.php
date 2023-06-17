@@ -101,7 +101,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             echo "Failed to create account";
         }
     }else{
-        echo "CSRF Validation Failed";
+        echo "Attack detected"; // CSRF Validation Failed
     }
 }
 
