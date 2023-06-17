@@ -29,7 +29,7 @@ class ForgotPassword
         }
 
         // Generate a random reset code
-        $resetCode = bin2hex(random_bytes(16));
+        $resetCode = str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
 
         // Store the reset code in the database for the user
         $stmt = $conn->prepare("UPDATE users SET reset_code = ? WHERE email = ?");
