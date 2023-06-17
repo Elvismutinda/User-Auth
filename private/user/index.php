@@ -13,7 +13,9 @@ require_once("../../config.php");
     <link rel="stylesheet" href="../../assets/style.css">
 </head>
 <body>
-    <h1>SUCCESSFUL LOGIN. WELCOME!!!</h1>
-    <button type="submit" class="btn btn-primary">LOGOUT</button>
+    <form action="../classes/logout.php" method="POST">
+        <h1>SUCCESSFUL LOGIN. WELCOME!!!</h1>
+        <button type="submit" class="btn btn-primary">LOGOUT</button>
+    </form>
 </body>
 </html>
