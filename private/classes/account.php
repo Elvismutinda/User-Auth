@@ -93,11 +93,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         $account = new Account($name, $email, $password, $dbConnection);
         if($account->createAccount()){
-            // $dbConnection->conn->close(); // Close the DBConnection
             header('Location: ../../index.php');
             exit;
         }else{
-            // $dbConnection->conn->close(); // Close the DBConnection
             echo "Failed to create account";
         }
     }else{

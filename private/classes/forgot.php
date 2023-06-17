@@ -67,10 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $forgotPassword = new ForgotPassword($email, $dbConnection);
     if ($forgotPassword->generateResetCode()) {
-        $dbConnection->conn->close(); // Close the DBConnection
         echo "Reset code sent successfully!";
     } else {
-        $dbConnection->conn->close(); // Close the DBConnection
         echo "Failed to send reset code.";
     }
 }
