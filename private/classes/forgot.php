@@ -63,7 +63,7 @@ class ForgotPassword
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
 
-    $dbConnection = new DBConnection(); // Create DBConnection object
+    $dbConnection = new DBConnection();
 
     $forgotPassword = new ForgotPassword($email, $dbConnection);
     if ($forgotPassword->generateResetCode()) {
