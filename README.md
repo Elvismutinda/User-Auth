@@ -25,6 +25,7 @@ LET'S BEGIN!
    - [PHPMailer](#phpmailer)
    - [Input Validation](#input-val)
    - [Rate Limit](#rate-limit)
+   - [Token Expiry](#token-expiry)
    - [CAPTCHA Verification](#captcha)
 
 ## Account Creation <a name="account-creation"> </a>
@@ -158,6 +159,8 @@ You can view more details about PHPMailer for installation and use here -> [PHPM
 
 ### 2. Input Validation <a name="input-val"> </a>
 Email sanitization and validation is done. Refer to [email security measures](#email-create).
+
+Prevents ```SQL Injections / XSS (cross-site scripting) attacks```
 ```php
 <?php
    // Sanitize and validate email
@@ -169,9 +172,11 @@ Email sanitization and validation is done. Refer to [email security measures](#e
 ```
 
 ### 3. Rate Limit <a name="rate-limit"> </a>
-This is how man times the user can try resetting their password.
+This is how many times the user can try resetting their password.
 
 When the rate limit which is 3 is reached, the user can't request for another reset code for the next 24 hours.
+
+It prevents ```Brute force attacks```.
 
 Implementation:
 ```php
@@ -198,5 +203,8 @@ Implementation:
 ?>
 ```
 
-### 4. CAPTCHA Verification <a name="captcha"> </a>
+### 4. Token Expiry <a name="token-expiry"> </a>
+An expiry time for the password reset token is set hence, after a certain period, the token should become invalid, requiring the user to initiate the reset process again.
+
+### 5. CAPTCHA Verification <a name="captcha"> </a>
 Here I used Google reCAPTCHA for the CAPTCHA verification to ensure that the request is made by a human and not automated scripts.
