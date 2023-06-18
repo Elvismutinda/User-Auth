@@ -21,7 +21,6 @@ class ForgotPassword
 
     public function generateResetCode()
     {
-        // Retrieve the DBConnection object from the class property
         $conn = $this->dbConnection->conn;
         $timeSent = time();
 
@@ -80,8 +79,7 @@ class ForgotPassword
 
     private function exceededRateLimit($emailAddress)
     {
-        // Implement your rate limiting logic here
-        // Example: Check if the email has exceeded the limit of 3 password reset attempts within the past 24 hours
+        // Check if the email has exceeded the limit of 3 password reset attempts within the past 24 hours
         $conn = $this->dbConnection->conn;
         $currentTime = time();
         $limit = 3;
