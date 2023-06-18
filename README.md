@@ -23,6 +23,7 @@ LET'S BEGIN!
    - [Timed Lockout](#timed-login)
 3. [Forgot Password](#forgot-pass)
    - [PHPMailer](#phpmailer)
+   - [Simple Security Features](#simple-sec)
 
 ## Account Creation <a name="account-creation"> </a>
 
@@ -101,9 +102,9 @@ In the form we include the CSRF token as a hidden input field:
 
 Then in the PHP script, a token is generated and once the form is submitted, a new one is generated.
 
-A 32 random byte string is generated using the ```random_bytes(32)``` function and then converted into a 64-character hexadecimal string using the ```bin2hex()``` function. This makes up the CSRF token.
+A 32 random byte string is generated using the ```random_bytes(32)``` function and then converted into a 64-character hexadecimal string using the ```bin2hex()``` function. 
 
-Implementation:
+This makes up the CSRF token:
 ```php
 <?php
   // Generate a CSRF token and store it in the session
@@ -152,3 +153,15 @@ composer require phpmailer/phpmailer
 Make sure you're installing it in your development folder.
 
 You can view more details about PHPMailer for installation and use here -> [PHPMailer](https://github.com/PHPMailer/PHPMailer)
+
+### 2. Simple Security Features <a name="simple-sec"> </a>
+Email sanitization and validation is done. Refer to [email security measures](#email-create).
+```php
+<?php
+   // Sanitize and validate email
+   $sanitizedEmail = filter_var($this->email, FILTER_SANITIZE_EMAIL);
+   if (!filter_var($sanitizedEmail, FILTER_VALIDATE_EMAIL)) {
+      return false;
+   }
+?>
+```
