@@ -11,6 +11,7 @@ require_once("config.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="assets/style.css">
+    <!-- Google reCAPTCHA script link -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
@@ -76,6 +77,7 @@ require_once("config.php");
                             <div class="row">
                                 <div class="outer">
                                     <div class="g-recaptcha" data-sitekey="6LeMF6smAAAAACKyqr7IRaOKU2sVunXbnRBmei_e"></div>
+                                    <!-- Use your recaptcha site key in the data-sitekey attribute-->
                                 </div>
                             </div>
                         </div>
