@@ -11,6 +11,7 @@ require_once("config.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="assets/style.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
     <div class="auth-page">
@@ -68,6 +69,13 @@ require_once("config.php");
                                     <label for="email">Email Address</label>
                                     <input type="email" class="form-control" name="email" required>
                                     <!-- <input type="hidden" name="crsf-token"> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="outer">
+                                    <div class="g-recaptcha" data-sitekey="6LeMF6smAAAAACKyqr7IRaOKU2sVunXbnRBmei_e"></div>
                                 </div>
                             </div>
                         </div>
