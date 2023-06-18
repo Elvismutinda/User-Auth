@@ -157,6 +157,33 @@ Make sure you're installing it in your development folder.
 
 You can view more details about PHPMailer for installation and use here -> [PHPMailer](https://github.com/PHPMailer/PHPMailer)
 
+After successfully installing phpmailer,there are some files we have to use for the mailing process to work:
+
+Implementation:
+```php
+<?php
+   require_once("../../vendor/autoload.php");
+
+   use PHPMailer\PHPMailer\PHPMailer;
+   use PHPMailer\PHPMailer\SMTP;
+
+   $mail = new PHPMailer(true);
+   $mail->isSMTP();
+   $mail->Host = 'smtp.gmail.com';  // Set your SMTP host
+   $mail->SMTPAuth = true;
+   $mail->Username = 'elvismutinda2@gmail.com';  // Set your email address
+   $mail->Password = 'wkhpkegpcgnrtdep';  // Set your email password (app password that is)
+   $mail->SMTPSecure = 'tls';
+   $mail->Port = 587;
+   $mail->setFrom('elvismutinda2@gmail.com', 'Elvis');  // Set the "from" email address and name
+   $mail->addAddress($sanitizedEmail);  // Set the recipient email address
+   $mail->Subject = 'Password Reset Code';
+   $mail->Body = "Your password reset code is: $resetCode";
+?>
+```
+
+In my case, I created an app password that will be used to send the reset code emails.
+
 ### 2. Input Validation <a name="input-val"> </a>
 Email sanitization and validation is done. Refer to [email security measures](#email-create).
 
@@ -208,3 +235,16 @@ An expiry time for the password reset token is set hence, after a certain period
 
 ### 5. CAPTCHA Verification <a name="captcha"> </a>
 Here I used Google reCAPTCHA for the CAPTCHA verification to ensure that the request is made by a human and not automated scripts.
+
+To setup the Google reCAPTCHA, we need to go to the [admin console](https://www.google.com/recaptcha/admin/create) and register a new site.
+
+Once that is done, you are given a site key and a secret key.
+
+The site key is used in the html form:
+```html
+   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+   <div class="g-recaptcha" data-sitekey="your_site_key_here"></div>
+```
+
+The secret key is then used in the server-side depending on how you write your code.
