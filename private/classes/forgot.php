@@ -43,7 +43,7 @@ class ForgotPassword
         $mail->Host = 'smtp.gmail.com';  // Set your SMTP host
         $mail->SMTPAuth = true;
         $mail->Username = 'elvismutinda2@gmail.com';  // Set your email address
-        $mail->Password = 'wkhpkegpcgnrtdep';  // Set your email password
+        $mail->Password = 'wkhpkegpcgnrtdep';  // Set your email password (app password that is)
         $mail->SMTPSecure = 'tls';
         $mail->Port = 587;
         $mail->setFrom('elvismutinda2@gmail.com', 'Elvis');  // Set the "from" email address and name
@@ -59,7 +59,7 @@ class ForgotPassword
     }
 }
 
-// Usage example
+// forgot pass
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
 
