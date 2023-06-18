@@ -23,6 +23,7 @@ LET'S BEGIN!
    - [Timed Lockout](#timed-login)
 3. [Forgot Password](#forgot-pass)
    - [PHPMailer](#phpmailer)
+   - [Simple Security Features](#simple-sec)
 
 ## Account Creation <a name="account-creation"> </a>
 
