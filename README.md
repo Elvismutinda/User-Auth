@@ -154,4 +154,13 @@ Make sure you're installing it in your development folder.
 You can view more details about PHPMailer for installation and use here -> [PHPMailer](https://github.com/PHPMailer/PHPMailer)
 
 ### 2. Simple Security Features <a name="simple-sec"> </a>
-Email validation is done. Refer to [email security measures](#email-create).
+Email sanitization and validation is done. Refer to [email security measures](#email-create).
+```php
+<?php
+   // Sanitize and validate email
+   $sanitizedEmail = filter_var($this->email, FILTER_SANITIZE_EMAIL);
+   if (!filter_var($sanitizedEmail, FILTER_VALIDATE_EMAIL)) {
+      return false;
+   }
+?>
+```
