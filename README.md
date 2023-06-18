@@ -101,9 +101,9 @@ In the form we include the CSRF token as a hidden input field:
 
 Then in the PHP script, a token is generated and once the form is submitted, a new one is generated.
 
-A 32 random byte string is generated using the ```random_bytes(32)``` function and then converted into a 64-character hexadecimal string using the ```bin2hex()``` function. This makes up the CSRF token.
+A 32 random byte string is generated using the ```random_bytes(32)``` function and then converted into a 64-character hexadecimal string using the ```bin2hex()``` function. 
 
-Implementation:
+This makes up the CSRF token:
 ```php
 <?php
   // Generate a CSRF token and store it in the session
