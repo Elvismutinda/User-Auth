@@ -179,6 +179,12 @@ Implementation:
    $mail->addAddress($sanitizedEmail);  // Set the recipient email address
    $mail->Subject = 'Password Reset Code';
    $mail->Body = "Your password reset code is: $resetCode";
+
+   if ($mail->send()) {
+      return true;
+   }else{
+      return false;
+   }
 ?>
 ```
 
