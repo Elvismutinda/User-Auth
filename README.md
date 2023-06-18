@@ -23,7 +23,9 @@ LET'S BEGIN!
    - [Timed Lockout](#timed-login)
 3. [Forgot Password](#forgot-pass)
    - [PHPMailer](#phpmailer)
-   - [Simple Security Features](#simple-sec)
+   - [Input Validation](#input-val)
+   - [Rate Limit](#rate-limit)
+   - [CAPTCHA Verification](#captcha)
 
 ## Account Creation <a name="account-creation"> </a>
 
@@ -154,7 +156,7 @@ Make sure you're installing it in your development folder.
 
 You can view more details about PHPMailer for installation and use here -> [PHPMailer](https://github.com/PHPMailer/PHPMailer)
 
-### 2. Simple Security Features <a name="simple-sec"> </a>
+### 2. Input Validation <a name="input-val"> </a>
 Email sanitization and validation is done. Refer to [email security measures](#email-create).
 ```php
 <?php
@@ -165,3 +167,36 @@ Email sanitization and validation is done. Refer to [email security measures](#e
    }
 ?>
 ```
+
+### 3. Rate Limit <a name="rate-limit"> </a>
+This is how man times the user can try resetting their password.
+
+When the rate limit which is 3 is reached, the user can't request for another reset code for the next 24 hours.
+
+Implementation:
+```php
+<?php
+   private function exceededRateLimit($emailAddress)
+   {
+      // Check if the email has exceeded the limit of 3 password reset attempts within the past 24 hours
+      $conn = $this->dbConnection->conn;
+        
+      $currentTime = time();
+      $limit = 3;
+      $timePeriod = 24 * 60 * 60; // 24 hours
+      $timeResult = $currentTime - $timePeriod;
+
+      $stmt = $conn->prepare("SELECT COUNT(*) FROM password_reset_attempts WHERE email = ? AND timestamp >= ?");
+      $stmt->bind_param("si", $emailAddress, $timeResult);
+      $stmt->execute();
+      $stmt->bind_result($attemptCount);
+      $stmt->fetch();
+      stmt->close();
+
+      return $attemptCount >= $limit;
+   }
+?>
+```
+
+### 4. CAPTCHA Verification <a name="captcha"> </a>
+Here I used Google reCAPTCHA for the CAPTCHA verification to ensure that the request is made by a human and not automated scripts.
