@@ -81,6 +81,7 @@ class ForgotPassword
     {
         // Check if the email has exceeded the limit of 3 password reset attempts within the past 24 hours
         $conn = $this->dbConnection->conn;
+        
         $currentTime = time();
         $limit = 3;
         $timePeriod = 24 * 60 * 60; // 24 hours
