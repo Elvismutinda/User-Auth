@@ -197,7 +197,7 @@ In my case, I created a ```Google app password``` that will be used to send the 
    </p>
 
 - On clicking generate your app password will be generated. Copy the 16-digit code given and store it safely.
-   <p>
+   <p align=""center>
       <img src="assets/src/images/generatedAppPass.png" alt="generated-app-pass" width="">
    </p>
 - Now to test if your SMTP server is working, go to [SMTP Test Tool](https://www.gmass.co/smtp-test) and input your details as follows:
