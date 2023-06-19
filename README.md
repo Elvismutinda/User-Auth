@@ -199,11 +199,11 @@ In my case, I created a ```Google app password``` that will be used to send the 
       <img src="assets/src/images/SMTP Test.png" alt="smtp-test" width="">
    </p>
 
-- For the username and from email address field, input the email address you created your app password with.
+- For the 'username' and from 'email address field', input the email address you created your app password with.
 
-- For the password input the 16-digit code generated earlier.
+- For the 'password' input the 16-digit code generated earlier.
 
-- To email address is just the email address you want to send the test message to.
+- 'To email address' is just the email address you want to send the test message to.
 
 After all that, get back to coding to connect your SMTP Server to the System.
 
