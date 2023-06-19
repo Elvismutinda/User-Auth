@@ -184,11 +184,17 @@ In my case, I created a ```Google app password``` that will be used to send the 
    </p>
 
 - Click on the arrow and you should be taken to the registration page.
-   <p>
-      <img src="assets/src/images/createAppPass.png" alt="create-app-pass" width="">
-   </p>
 
 - Select an app name and device name (these can also be whatever name you wish to give them).
+   <p align="center">
+      <img src="assets/src/images/createAppPass.png" alt="create-app-pass" width="300px" height="">
+   </p>
+   <p align="center">
+      <img src="assets/src/images/selectApp.png" alt="select-app" width="300px" height="">
+   </p>
+   <p align="center">
+      <img src="assets/src/images/selectDevice.png" alt="select-device" width="300px" height="">
+   </p>
 
 - On clicking generate your app password will be generated. Copy the 16-digit code given and store it safely.
    <p>
