@@ -10,7 +10,7 @@ require_once("config.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <!-- Google reCAPTCHA script link -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
