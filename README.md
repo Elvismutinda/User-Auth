@@ -255,7 +255,7 @@ This is how many times the user can try resetting their password.
 
 When the rate limit which is 3 is reached, the user can't request for another reset code for the next 24 hours.
 
-It prevents ```Brute force attacks```.
+This prevents ```Brute force attacks```.
 
 Implementation:
 ```php
