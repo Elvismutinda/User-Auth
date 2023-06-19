@@ -161,27 +161,35 @@ After successfully installing phpmailer,we need to first set up our SMTP Server 
 
 In my case, I created a ```Google app password``` that will be used to send the reset code emails.
 
-- To create an app password go to your gmail account. 
+- To create an app password go to your gmail account.
+
 - Navigate to the settings gear icon and click on 'See all settings'.
+
 - Navigate to the 'Forwarding and POP/IMAP' and enable IMAP.
    <p>
       <img src="assets/src/images/enablingIMAP.png" alt="config" width="">
    </p>
 - Once all that is done, click on your user icon in the top right and go to 'Manage your Google Account'.
+
 - On the left navigation bar, click 'Security'.
+
 - Scroll down to 'How you sign in to Google' and click on '2-Step Verification'. You need to have 2-step verification enabled.
    <p>
       <img src="assets/src/images/2-step.png" alt="2-step" width="">
    </p>
+
 - Once there, Scroll down until you see 'App Passwords'.
    <p>
       <img src="assets/src/images/appPass.png" alt="app-pass" width="">
    </p>
+
 - Click on the arrow and you should be taken to the registration page.
    <p>
       <img src="assets/src/images/createAppPass.png" alt="create-app-pass" width="">
    </p>
+
 - Select an app name and device name (these can also be whatever name you wish to give them).
+
 - On clicking generate your app password will be generated. Copy the 16-digit code given and store it safely.
    <p>
       <img src="assets/src/images/generatedAppPass.png" alt="generated-app-pass" width="">
@@ -190,8 +198,11 @@ In my case, I created a ```Google app password``` that will be used to send the 
    <p>
       <img src="assets/src/images/SMTP Test.png" alt="smtp-test" width="">
    </p>
+
 - For the username and from email address field, input the email address you created your app password with.
+
 - For the password input the 16-digit code generated earlier.
+
 - To email address is just the email address you want to send the test message to.
 
 After all that, get back to coding to connect your SMTP Server to the System.
