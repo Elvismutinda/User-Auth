@@ -299,4 +299,4 @@ The site key is used in the html form:
    <div class="g-recaptcha" data-sitekey="your_site_key_here"></div>
 ```
 
-The secret key is then used in the server-side depending on how you write your code.
+The secret key is then used in the server-side depending on how you write your code, insert it at the right place.
