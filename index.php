@@ -11,8 +11,10 @@ require_once("config.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="assets/css/style.css">
+
     <!-- Google reCAPTCHA script link -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    
 </head>
 <body>
     <div class="auth-page">
