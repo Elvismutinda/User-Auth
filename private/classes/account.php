@@ -68,24 +68,28 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         // Validate user inputs
         if(empty($name) || empty($email) || empty($password)){
-            echo "Failed to create account";
+            echo "<script>alert('Failed to create account');
+            document.location='../../index.php'</script>";
             exit;
         }
 
         // Validate email format
         if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-            echo "Invalid email format";
+            echo "<script>alert('Invalid email format');
+            document.location='../../index.php'</script>";
             exit;
         }
 
         // Validate password strength
         if(strlen($password) < 8){
-            echo "Password must be at least 8 characters";
+            echo "<script>alert('Password must be at least 8 characters');
+            document.location='../../index.php'</script>";
             exit;
         }
         
         if(!preg_match("/[A-Z]/", $password) || !preg_match("/[a-z]/", $password) || !preg_match("/[0-9]/", $password)){
-            echo "Password must contain at least one uppercase letter, one lowercase letter, and one number";
+            echo "<script>alert('Password must contain at least one uppercase letter, one lowercase letter, and one number');
+            document.location='../../index.php'</script>";
             exit;
         }
 
@@ -96,10 +100,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             header('Location: ../../index.php');
             exit;
         }else{
-            echo "Failed to create account";
+            echo "<script>alert('Failed to create account');
+            document.location='../../index.php'</script>";
         }
     }else{
-        echo "Attack detected"; // CSRF Validation Failed
+        echo "<script>alert('Attack detected');
+        document.location='../../index.php'</script>"; // CSRF Validation Failed
     }
 }
 
