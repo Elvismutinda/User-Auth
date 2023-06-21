@@ -352,3 +352,5 @@ The site key is used in the html form:
 ```
 
 The secret key is then used in the server-side depending on how you write your code, insert it at the right place.
+
+## NOW LET'S BEGIN THE RESETTING PROCESS!!!
