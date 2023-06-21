@@ -51,6 +51,8 @@ CREATE TABLE `users` (
   `name` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `verification_token` varchar(250) DEFAULT NULL,
+  `verified` tinyint(1) NOT NULL DEFAULT 0,
   `login_attempts` int(11) DEFAULT 0,
   `last_failed_login` int(11) DEFAULT NULL,
   `locked` tinyint(1) NOT NULL DEFAULT 0,

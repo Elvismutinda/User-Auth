@@ -1,6 +1,10 @@
 <?php
 
 require_once("../../config.php");
+require_once("../../vendor/autoload.php");
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
 
 class Account
 {
@@ -43,12 +47,38 @@ class Account
             return false;
         }
 
+        // Generate a unique verification token
+        $verificationToken = bin2hex(random_bytes(32));
+
         // store details in database
-        $stmt = $conn->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $sanitizedName, $sanitizedEmail, $hashedPass);
+        $stmt = $conn->prepare("INSERT INTO users (name, email, password, verification_token) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $sanitizedName, $sanitizedEmail, $hashedPass, $verificationToken);
         $stmt->execute();
         // account creation successful
         $stmt->close();
+
+        // Send verification email
+        $mail = new PHPMailer();
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'elvismutinda2@gmail.com';
+        $mail->Password = 'wkhpkegpcgnrtdep';
+        $mail->SMTPSecure = 'tls';
+        $mail->Port = 587;
+        $mail->setFrom('elvismutinda2@gmail.com', 'Elvis');
+        $mail->addAddress($this->email, $this->name);
+        $mail->isHTML(true);
+        $mail->Subject = 'Account Verification';
+        $mail->Body = 'Please click the following link to verify your account: <a href="http://localhost/userAuth/private/classes/verify.php?token='.urlencode($verificationToken).'">Verify Account</a>';
+        
+        if($mail->send()){
+            return true;
+        }else{
+            // If there is an error while sending the email, you can handle it here
+            // For example, log the error or display a message to the user
+            return false;
+        }
 
         // Generate a new CSRF token after creating the account
         $csrfToken = bin2hex(random_bytes(32));
@@ -69,27 +99,27 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         // Validate user inputs
         if(empty($name) || empty($email) || empty($password)){
             echo "<script>alert('Failed to create account');
-            document.location='../../index.php'</script>";
+            window.location='../../index.php'</script>";
             exit;
         }
 
         // Validate email format
         if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
             echo "<script>alert('Invalid email format');
-            document.location='../../index.php'</script>";
+            window.location='../../index.php'</script>";
             exit;
         }
 
         // Validate password strength
         if(strlen($password) < 8){
             echo "<script>alert('Password must be at least 8 characters');
-            document.location='../../index.php'</script>";
+            window.location='../../index.php'</script>";
             exit;
         }
         
         if(!preg_match("/[A-Z]/", $password) || !preg_match("/[a-z]/", $password) || !preg_match("/[0-9]/", $password)){
             echo "<script>alert('Password must contain at least one uppercase letter, one lowercase letter, and one number');
-            document.location='../../index.php'</script>";
+            window.location='../../index.php'</script>";
             exit;
         }
 
@@ -97,15 +127,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         $account = new Account($name, $email, $password, $dbConnection);
         if($account->createAccount()){
-            header('Location: ../../index.php');
+            echo "<script>alert('Account created successfully. Please check your email for verification');
+            window.location='../../index.php'</script>";
             exit;
         }else{
             echo "<script>alert('Failed to create account');
-            document.location='../../index.php'</script>";
+            window.location='../../index.php'</script>";
         }
     }else{
         echo "<script>alert('Attack detected');
-        document.location='../../index.php'</script>"; // CSRF Validation Failed
+        window.location='../../index.php'</script>"; // CSRF Validation Failed
     }
 }
 
