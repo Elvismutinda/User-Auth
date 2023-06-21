@@ -155,8 +155,7 @@ Implementation of email verification:
    if($mail->send()){
       return true;
    }else{
-      // If there is an error while sending the email, you can handle it here
-      // For example, log the error or display a message to the user
+      // If there is an error while sending the email, you can handle it here, e.g, display a message to the user
       return false;
    }
 ?>
