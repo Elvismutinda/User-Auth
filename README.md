@@ -17,6 +17,7 @@ LET'S BEGIN!
    - [Password Security Measures](#pass-create)
    - [Prepared Statements](#pp1)
    - [CSRF Tokens](#csrf-create)
+   - [Email verification](#email-verify)
 2. [Login](#login)
    - [Prepared Statements](#pp2)
    - [Failed Login Attempts](#failed-login)
@@ -113,6 +114,51 @@ This makes up the CSRF token:
   // Generate a CSRF token and store it in the session
   $csrfToken = bin2hex(random_bytes(32));
   $_SESSION['csrf_token'] = $csrfToken;
+?>
+```
+
+### 4. Email verification <a name="email-verify"> </a>
+I used PHPMailer to implement the verification process.
+
+An email is sent to the potential user's email with a link to verify their email. Once they click on the link, their email is verified and they are able to access the system.
+
+To view details on how to setup PHPMailer, go to [PHPMailer for forgot password](#phpmailer).
+
+Implementation of email verification:
+```php
+<?php
+   // Generate a unique verification token
+   $verificationToken = bin2hex(random_bytes(32));
+
+   // store details in database
+   $stmt = $conn->prepare("INSERT INTO users (name, email, password, verification_token) VALUES (?, ?, ?, ?)");
+   $stmt->bind_param("ssss", $sanitizedName, $sanitizedEmail, $hashedPass, $verificationToken);
+   $stmt->execute();
+   // account creation successful
+   $stmt->close();
+
+   // Send verification email
+   $mail = new PHPMailer();
+   $mail->isSMTP();
+   $mail->Host = 'smtp.gmail.com';
+   $mail->SMTPAuth = true;
+   $mail->Username = 'elvismutinda2@gmail.com';
+   $mail->Password = 'wkhpkegpcgnrtdep';
+   $mail->SMTPSecure = 'tls';
+   $mail->Port = 587;
+   $mail->setFrom('elvismutinda2@gmail.com', 'Elvis');
+   $mail->addAddress($this->email, $this->name);
+   $mail->isHTML(true);
+   $mail->Subject = 'Account Verification';
+   $mail->Body = 'Please click the following link to verify your account: <a href="http://localhost/userAuth/private/classes/verify.php?token='.urlencode($verificationToken).'">Verify Account</a>';
+        
+   if($mail->send()){
+      return true;
+   }else{
+      // If there is an error while sending the email, you can handle it here
+      // For example, log the error or display a message to the user
+      return false;
+   }
 ?>
 ```
 
