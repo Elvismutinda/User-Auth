@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 18, 2023 at 05:18 PM
+-- Generation Time: Jun 21, 2023 at 01:53 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -33,8 +33,14 @@ CREATE TABLE `password_reset_attempts` (
   `timestamp` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
@@ -49,10 +55,12 @@ CREATE TABLE `users` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-ALTER TABLE `password_reset_attempts`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `email` (`email`);
+--
+-- Dumping data for table `users`
+--
 
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `verification_token`, `verified`, `login_attempts`, `last_failed_login`, `locked`, `reset_code`, `reset_code_expiration`, `created_at`, `updated_at`) VALUES
+(1, 'Elvis', 'elvocool47@gmail.com', '$2y$10$jNiRUDJas2kO/tLgBbmIHOyOKysqmhWx6BNRrbfj4UsdVRQeLFJXC', NULL, 1, 0, NULL, 0, NULL, NULL, '2023-06-21 11:48:42', '2023-06-21 11:52:03');
 
 --
 -- Indexes for dumped tables
@@ -74,12 +82,6 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
-
---
--- AUTO_INCREMENT for table `password_reset_attempts`
---
-ALTER TABLE `password_reset_attempts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
