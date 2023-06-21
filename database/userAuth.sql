@@ -33,21 +33,8 @@ CREATE TABLE `password_reset_attempts` (
   `timestamp` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `password_reset_attempts`
---
-
-INSERT INTO `password_reset_attempts` (`id`, `email`, `timestamp`) VALUES
-(1, 'elvocool47@gmail.com', 1687101441);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
---
-
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
@@ -62,12 +49,10 @@ CREATE TABLE `users` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `users`
---
+ALTER TABLE `password_reset_attempts`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `email` (`email`);
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `login_attempts`, `last_failed_login`, `locked`, `reset_code`, `reset_code_expiration`, `created_at`, `updated_at`) VALUES
-(1, 'Elvis', 'elvocool47@gmail.com', '$2y$10$2ygmRWp.uArEmu.aYLr0f.PdsILGRCLXpQYhdNJ8eS76knaux.aVS', 0, NULL, 0, '204805', 1687105042, '2023-06-18 15:17:08', '2023-06-18 15:17:22');
 
 --
 -- Indexes for dumped tables

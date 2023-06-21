@@ -34,6 +34,14 @@ class Login
         if ($result->num_rows === 1) {
             $row = $result->fetch_assoc();
 
+            if ($row['verified'] == 0) {
+                // Account is not verified
+                $stmt->close();
+                echo "<script>alert('Account is not verified. Please verify your email.');
+                window.location='../..'</script>";
+                return false;
+            }
+
             if ($row['locked'] == 1) {
                 // Account is locked
                 $lockTimestamp = $row['last_failed_login'];
