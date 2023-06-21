@@ -86,7 +86,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -94,9 +93,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <h2>Password Reset</h2>
-    <form action="reset.php" method="POST">
-        <input type="text" name="email" value="<?php echo htmlspecialchars($_GET['email']); ?>">
-        <input type="text" name="reset_code" value="<?php echo htmlspecialchars($_GET['reset_code']); ?>">
+    <form action="" method="POST">
+        <input type="hidden" name="email" value="<?php echo htmlspecialchars($_POST['email']); ?>">
+        <input type="hidden" name="reset_code" value="<?php echo htmlspecialchars($_POST['reset_code']); ?>">
         <label for="new_password">New Password:</label>
         <input type="password" name="new_password" id="new_password" required>
         <br>
