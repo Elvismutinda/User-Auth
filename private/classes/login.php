@@ -47,7 +47,7 @@ class Login
                         // Account is still locked
                         $stmt->close();
                         echo "<script>alert('Account locked. Please try again later.');
-                        document.location='../../index.php'</script>";
+                        window.location='../../index.php'</script>";
                         return false;
                     } else {
                         // Unlock the account since the lockout period has expired
@@ -147,7 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     } else {
         echo "<script>alert('Login failed');
-        document.location='../../index.php'</script>";
+        window.location='../../index.php'</script>";
     }
 }
 ?>
