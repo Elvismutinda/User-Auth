@@ -25,6 +25,12 @@ if(isset($_GET['token'])){
         $stmt->execute();
         $stmt->close();
 
+        // Delete the verification token from the database
+        $stmt = $dbConnection->prepare("UPDATE users SET verification_token = NULL WHERE email = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $stmt->close();
+
         // Display a success message to the user
         echo "<script>alert('Your account has been verified successfully. You can now login!');
         window.location='../..';</script>";
