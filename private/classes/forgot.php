@@ -144,7 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $forgotPassword = new ForgotPassword($email, $dbConnection, $recaptchaSecretKey);
     if ($forgotPassword->generateResetCode()) {
         echo "<script>alert('Reset code sent successfully!');
-        window.location='../..'</script>";
+        window.location='reset.php'</script>";
     } else {
         echo "<script>alert('Failed to send reset code!');
         window.location='../..'</script>";
