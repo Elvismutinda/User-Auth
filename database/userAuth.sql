@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 21, 2023 at 01:53 PM
+-- Generation Time: Jun 21, 2023 at 02:29 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -33,6 +33,13 @@ CREATE TABLE `password_reset_attempts` (
   `timestamp` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `password_reset_attempts`
+--
+
+INSERT INTO `password_reset_attempts` (`id`, `email`, `timestamp`) VALUES
+(1, 'elvocool47@gmail.com', 1687350491);
+
 -- --------------------------------------------------------
 
 --
@@ -60,7 +67,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `verification_token`, `verified`, `login_attempts`, `last_failed_login`, `locked`, `reset_code`, `reset_code_expiration`, `created_at`, `updated_at`) VALUES
-(1, 'Elvis', 'elvocool47@gmail.com', '$2y$10$jNiRUDJas2kO/tLgBbmIHOyOKysqmhWx6BNRrbfj4UsdVRQeLFJXC', NULL, 1, 0, NULL, 0, NULL, NULL, '2023-06-21 11:48:42', '2023-06-21 11:52:03');
+(1, 'Elvis', 'elvocool47@gmail.com', '$2y$10$jNiRUDJas2kO/tLgBbmIHOyOKysqmhWx6BNRrbfj4UsdVRQeLFJXC', NULL, 1, 0, NULL, 0, '645829', 1687354091, '2023-06-21 11:48:42', '2023-06-21 12:28:11');
 
 --
 -- Indexes for dumped tables
@@ -70,8 +77,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `verification_token`, `v
 -- Indexes for table `password_reset_attempts`
 --
 ALTER TABLE `password_reset_attempts`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `email` (`email`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `users`
@@ -82,6 +88,12 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `password_reset_attempts`
+--
+ALTER TABLE `password_reset_attempts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
