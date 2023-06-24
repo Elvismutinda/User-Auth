@@ -70,7 +70,62 @@ class Account
         $mail->addAddress($this->email, $this->name);
         $mail->isHTML(true);
         $mail->Subject = 'Account Verification';
-        $mail->Body = 'Please click the following link to verify your account: <a href="http://localhost/userAuth/private/classes/verify.php?token='.urlencode($verificationToken).'">Verify Account</a>';
+        // Email Styles
+        $mail->Body = '
+        <html>
+        <head>
+        </head>
+        <body>
+        <div style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;height:100%;line-height:1.4;width:100%!important;margin:0;padding:0;background-color:black;color:white">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif">
+            <tbody>
+                <tr>
+                    <td style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;padding:0 0 30px 0">
+                        <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif">
+                            <tbody>
+                                <tr>
+                                    <td style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;padding:20px 30px 20px 30px">
+                                        <table style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;text-align:center">
+                                                        <div style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;text-align:center;font-weight:400;margin-top:15px">
+                                                            <div style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;text-align:center;margin-top:40px">
+                                                                <a href="http://localhost/userAuth" style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;" target="_blank">
+                                                                    <img src="../../assets/src/images/logo.png" alt="Elvocool" style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;max-width:100%;border:none;display:inline-block;height:22px" height="22">
+                                                                </a>
+                                                            </div>
+                                                            <div style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;height:15px"></div>
+                                                            <div style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;padding:20px;background:#191b1f;text-align:left">
+                                                                <div style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;margin-top:3rem">
+                                                                    <p style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;font-size:20px;line-height:1.5em;margin-top:0;text-align:center">Please click the link below to complete sign up:</p>
+                                                                    <p style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;line-height:1.5em;text-align:center;font-size:2rem;margin-top:1em"><a href="http://localhost/userAuth/private/classes/verify.php?token='.urlencode($verificationToken).'" style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;cursor:pointer;text-decoration:none">Verify Account</a></p>
+                                                                    <p style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;line-height:1.5em;margin-top:0;text-align:center;font-size:0.75rem">
+                                                                        <span style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;">Please note that the link will expire in 10 minutes.</span>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <div style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;padding:20px;text-align:center;font-size:14px">
+                                                                <div style="box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;font-weight:400">&copy;2023 Elvocool, All Rights Reserved.</div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        </body>
+        </html>
+        ';
+        $mail->AltBody = 'Please click the following link to verify your account: <a href="http://localhost/userAuth/private/classes/verify.php?token='.urlencode($verificationToken).'">Verify Account</a>';
         
         if($mail->send()){
             return true;
@@ -126,7 +181,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         $account = new Account($name, $email, $password, $dbConnection);
         if($account->createAccount()){
-            echo "<script>alert('Account created successfully. Please check your email for verification');
+            echo "<script>alert('Please check your email to verify your account!');
             window.location='../../index.php'</script>";
             exit;
         }else{
