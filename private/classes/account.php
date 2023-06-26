@@ -70,7 +70,7 @@ class Account
         $mail->addAddress($this->email, $this->name);
         $mail->isHTML(true);
         $mail->Subject = 'Account Verification';
-        // Email Styles
+        // Email styling
         $mail->Body = '
         <html>
         <head>
