@@ -55,11 +55,11 @@ class ForgotPassword
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';  // Set your SMTP host
         $mail->SMTPAuth = true;
-        $mail->Username = 'elvismutinda2@gmail.com';  // Set your email address
-        $mail->Password = 'wkhpkegpcgnrtdep';  // Set your email password (app password that is)
+        $mail->Username = 'youemail@gmail.com';  // Set your email address
+        $mail->Password = 'yourAppPass';  // Set your email password (app password that is)
         $mail->SMTPSecure = 'tls';
         $mail->Port = 587;
-        $mail->setFrom('elvismutinda2@gmail.com', 'Elvis');  // Set the "from" email address and name
+        $mail->setFrom('youremail@gmail.com', 'Name');  // Set the "from" email address and name
         $mail->addAddress($sanitizedEmail);  // Set the recipient email address
         $mail->Subject = 'Password Reset Code';
         $mail->Body = "Your password reset code is: $resetCode";
