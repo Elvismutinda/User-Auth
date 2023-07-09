@@ -62,11 +62,11 @@ class Account
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'elvismutinda2@gmail.com';
-        $mail->Password = 'wkhpkegpcgnrtdep';
+        $mail->Username = 'youremail@gmail.com';
+        $mail->Password = 'yourAppPass';
         $mail->SMTPSecure = 'tls';
         $mail->Port = 587;
-        $mail->setFrom('elvismutinda2@gmail.com', 'Elvis');
+        $mail->setFrom('youremail@gmail.com', 'Name');
         $mail->addAddress($this->email, $this->name);
         $mail->isHTML(true);
         $mail->Subject = 'Account Verification';
