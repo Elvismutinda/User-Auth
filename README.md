@@ -142,11 +142,11 @@ Implementation of email verification:
    $mail->isSMTP();
    $mail->Host = 'smtp.gmail.com';
    $mail->SMTPAuth = true;
-   $mail->Username = 'elvismutinda2@gmail.com';
-   $mail->Password = 'wkhpkegpcgnrtdep';
+   $mail->Username = 'yourEmail';
+   $mail->Password = 'yourAppPassword';
    $mail->SMTPSecure = 'tls';
    $mail->Port = 587;
-   $mail->setFrom('elvismutinda2@gmail.com', 'Elvis');
+   $mail->setFrom('yourEmail', 'orgName/yourName');
    $mail->addAddress($this->email, $this->name);
    $mail->isHTML(true);
    $mail->Subject = 'Account Verification';
